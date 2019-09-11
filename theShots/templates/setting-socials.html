@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block page %}
+    <!-- Main container -->
+<main>
+
+    <!-- Page links -->
+    <div class="page-links">
+        <div class="container">
+            <div class="pull-left">
+                <ul class="link-list">
+                    <li><a href="../../userApp/templates/setting-profile.html">Profile</a></li>
+                    <li><a class="active" href="setting-socials.html">Social medias</a></li>
+                    <li><a href="setting-notification.html">Notification</a></li>
+                    <li><a href="setting-security.html">Security</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END Page links -->
+
+    <section class="no-border-bottom section-sm">
+        <div class="container">
+            <header class="section-header">
+                <span>Settings</span>
+                <h3>Social medias profiles</h3>
+                <p>Update your facebook, twitter, linkedin, etc. address</p>
+            </header>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6>Social pages</h6>
+                        </div>
+
+                        <div class="card-block">
+                            <form method="post" class="form-horizontal">
+                            {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="form-group">
+                                    <label for="input6" class="col-sm-2 control-label">{{ field.label }}</label>
+                                    <div class="col-sm-6">
+                {% render_field field class="form-control" id="input6" placeholder=field.label %}
+{#                          <input type="email" class="form-control" id="input6" value="http://doesite.me/">#}
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+
+
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-6">
+                                        <button class="btn btn-primary btn-sm" type="submit">Save changes</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+<!-- END Main container -->
+
+
+{% endblock %}

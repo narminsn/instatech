@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block page %}
+    <!-- Main container -->
+    <main>
+
+        <section class="no-border-bottom">
+            <div class="container">
+                <header class="section-header">
+                    <span>Upload</span>
+                    <h2>Add shot</h2>
+                    <p>Give a title, upload an image, and write a description to create a shot.</p>
+                </header>
+
+                <form enctype="multipart/form-data" class="form-horizontal1" method="POST"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6>Shot details</h6>
+                                </div>
+
+
+                                <div class="card-block">
+                                <input type="hidden" name="image_data" value="{{ image_data }}">
+                                    {% for field in form %}
+
+                                        {% if forloop.counter == 2 %}
+
+                                            <div class="form-group">
+                                                <label>Preview image</label>
+                                                {% render_field field class="dropify" placeholder=field.label %}
+                                                <span class="help-block">The best image size is 800x600 pixels</span>
+                                            </div>
+
+
+                                            <div class="form-group">
+
+                                                <label>Images</label>
+
+                                                <div class="dropzone dropzone-previews dz-clickable my_dropzone">
+                                                    <div class="dz-default dz-message">
+                                                        <span>
+                                                            <span class="dropzone-file-icon"></span>
+                                                                Drag and drop a file here or click
+                                                                </span>
+                                                    </div>
+                                                </div>
+                                            <span class="help-block">Upload several images to show as an image gallery, if you'd like</span>
+                                            </div>
+
+                                            {#                                            <br>#}
+                                        {% else %}
+                                            <div class="form-group">
+                                                {% render_field field class="form-control input-lg" placeholder=field.label %}
+                                            </div>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                 <button class="btn btn-primary btn-block" type="submit">Submit shot</button>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+    <!-- END Main container -->
+    <script>
+        Dropzone.autoDiscover = false;
+        Dropzone.options.dZUpload = {
+            paramName: "orginal", // The name that will be used to transfer the file
+            maxFilesize: 50, // MB
+            maxFiles: 1
+
+        };
+        $(".my_dropzone").dropzone({
+            url: "{% url 'imageadd' %}",
+            addRemoveLinks: true,
+            sending: function (file, xhr, formData) {
+                formData.append('image_data', '{{ image_data }}'); // send each image data
+            },
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            success: function (file, response) {
+                file.previewElement.classList.add("dz-success");
+                if (response.uploaded) {
+                    file.img_pk = response.pk;
+                } else {
+                    file.img_pk = 1;
+                }
+            },
+            removedfile: function (file, serverFileName) {
+                var file_pk = file.img_pk;
+                console.log(file_pk);
+                $.ajax({
+                    url: "{% url 'picture-delete' %}",
+                    type: "POST",
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    data: {'remove_object': file_pk, 'image_data': '{{ image_data }}'}
+                });
+                //console.log($(this).closest('.dz-preview'));
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            },
+            error: function (file, response) {
+                file.previewElement.classList.add("dz-error");
+                $(file.previewElement).find('.dz-error-message').text(response);
+            }
+        });
+    </script>
+
+{% endblock %}
+
+
+

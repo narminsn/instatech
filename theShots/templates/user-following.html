@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+
+{% block page %}
+    <!-- Main container -->
+<main>
+
+    <!-- Profile head -->
+    <div class="profile-head">
+        <div class="container">
+            <a href="user-profile.html"><img src="assets/img/avatar-2.jpg" alt="avatar"></a>
+            <h5><a href="#">DoeDesign</a></h5>
+            <p><i class="fa fa-map-marker"></i> Los Angeles, US</p>
+            <p class="lead">Front-end developer</p>
+            <p>Phasellus in ipsum vestibulum, maximus mauris a, venenatis quam. Vestibulum nec mi malesuada.</p>
+
+            <ul class="social-icons">
+                <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-globe"></i></a></li>
+            </ul>
+
+            <div class="row bottom-bar">
+                <ul class="col-sm-12 col-md-4 action-buttons">
+                    <li><a class="btn btn-success btn-sm" href="#"><i class="fa fa-check"></i> Following</a></li>
+                </ul>
+
+                <ul class="col-sm-12 col-md-8 tab-list">
+                    <li><a href="user-profile.html"><i>Shots</i><span>125</span></a></li>
+                    <li class="hidden-xs"><a href="user-profile.html"><i>Likes</i><span>1.6K</span></a></li>
+                    <li><a href="user-followers.html"><i>Followers</i><span>2.3K</span></a></li>
+                    <li class="active"><a href="user-followers-2.html"><i>Following</i><span>279</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END Profile head -->
+
+    <!-- User list -->
+       <section class="no-border-bottom section-sm">
+        <div class="container">
+
+            <div class="row equal-blocks">
+
+                <!-- User widget -->
+                {% for user in following %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="card user-widget">
+                        <div class="card-block text-center">
+                            <a href="user-profile.html"><img src="{{ user.get_image }}" alt="avatar"></a>
+                            <h5><a href="#">{{ user.username }}</a></h5>
+                            <p class="lead">{{ user.headline }}</p>
+                            <small>{{ user.location }}</small>
+                            <br>
+                            <a data-id="{{ user.id }}" class="btn btn-success btn-outline btn-sm follow-btn" href="#">Follow</a>
+                            <br>
+                        </div>
+
+                        <div class="card-footer">
+                            <ul class="user-stats">
+                                <li><a href="#"><i>Shots</i><span>{{ user.postmodel_set.all.count }}</span></a></li>
+                                <li><a href="#"><i>Followers</i><span>{{ user.followers.count }}</span></a></li>
+                                <li><a href="#"><i>Following</i><span>{{ user.following.count }}</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+                <!-- END User widget -->
+
+
+            </div>
+
+            <nav class="text-center">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <i class="ti-angle-left"></i>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li class="active"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <i class="ti-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </section>
+
+    <!-- END User list -->
+
+</main>
+<!-- END Main container -->
+
+{% endblock %}
+

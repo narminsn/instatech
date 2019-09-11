@@ -2,10 +2,12 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+media/
 # C extensions
 *.so
-
+.idea/
+.vscode/
+.venv/
 # Distribution / packaging
 .Python
 build/
@@ -20,6 +22,7 @@ parts/
 sdist/
 var/
 wheels/
+db.sqlite3
 *.egg-info/
 .installed.cfg
 *.egg

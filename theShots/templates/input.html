@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block page %}
+    <form class="input" >
+{#    {% csrf_token %}#}
+    <input id="commentinput" type="text">
+</form>
+<p class="sub">submit</p>
+
+{% endblock %}
+{% block script %}
+    <script>
+     $(document).ready(function () {
+{##}
+{#$("#commentinput").keypress(function(event) {#}
+{#    if (event.which == 13) {#}
+{#        var value = $("#commentinput").val()#}
+{#        #}
+{##}
+{##}
+{##}
+{#    }});#}
+
+$(".sub").click(function (e) {
+    console.log('nsmr')
+    var val = 12
+                $.ajax({
+                    {#url: "explore/",#}
+                    method: "POST",
+                    dataType: "application/json",
+                    data: {
+                        post_id: val,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+                    success: function (data) {
+                        console.log((data));
+
+                    },
+                    error: function () {
+                        console.log('error')
+
+                    }
+                })
+
+
+            });
+
+        });
+
+
+</script>
+{% endblock %}

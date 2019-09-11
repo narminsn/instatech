@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block page %}
+    <!-- Main container -->
+    <main>
+
+        <!-- Shots list -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    {% for post in posts %}
+
+                        <!-- Shot -->
+                        <input type="hidden" class="narmin" value="{{ post.id }}">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <div class="shot" data-url="{% url 'modal' post.id %}">
+                                <div class="shot-preview">
+                                    <a alt="{{ post.id }}" class="img" href="shot-gallery.html">
+                                        <img src="{{ post.background_image.url }}"></a>
+                                    <h5 class="title"><a href="#">Notify by {{ post.user }}</a></h5>
+                                    <a class="label" href="page-search.html">App</a>
+                                </div>
+
+                                <div class="shot-detail">
+                                    <div class="shot-info">
+                                        <a href="user-profile.html"><img src="{{ request.user.get_image }}"
+                                                                         alt="avatar"></a>
+                                        <h6><a href="user-profile.html">{{ post.user.first_name }}</a></h6>
+                                        <time datetime="2016-02-04 22:30">1 hours ago</time>
+                                    </div>
+
+                                    <ul class="shot-stats">
+                                        <li><i class="fa fa-eye"></i><span>6.3k</span></li>
+                                        <li><a href="shot-gallery.html#comments"><i
+                                                class="fa fa-comments"></i><span>328</span></a>
+                                        </li>
+                                        <li><a class="like" data-id="{{ post.id }}" href="#">
+                                            {% if post in likes %}
+                                                <i class="fa fa-heart"></i>
+                                            {% else %}
+                                                <i class="fa fa-heart-o"></i>
+                                            {% endif %}
+                                            <span>1.2k</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Shot -->
+
+                    {% endfor %}
+
+
+                </div>
+
+                <br><br>
+                {#                <p class="text-center"><a class="btn btn-primary btn-round" href="#">Load more</a></p>#}
+
+
+                <ul class="pagination justify-content-center">
+                    {% if posts.has_previous %}
+                        <li class="page-item disabled"><a class="page-link"
+                                                          href="?page={{ posts.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in page_range %}
+                        {% if page == posts.number %}
+                            <li class="page-item active"><a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if posts.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </section>
+        <!-- END Shots list -->
+
+
+    </main>
+    <!-- END Main container -->
+
+{% endblock %}
+
+{% block modal %}
+    {#    <!-- Back to top button -->#}
+    {#<a id="scroll-up" href="#"><i class="ti-angle-up"></i></a>#}
+    {#<!-- END Back to top button -->#}
+    {##}
+
+    <!-- Shot description modal -->
+    <div id="shot-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <a class="close-modal" data-dismiss="modal" href="#"><i class="ti-close"></i></a>
+            <div class="modal-content"></div>
+        </div>
+    </div>
+    <!-- END Shot description modal -->
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+        $(document).ready(function () {
+
+            $(".like").click(function (e) {
+                var post_id = $(this).attr("data-id");
+                console.log(post_id)
+
+                $.ajax({
+                    {#url: "explore/",#}
+                    method: "POST",
+                    dataType: "application/json",
+                    data: {
+                        post_id: post_id,
+                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                    },
+                    success: function (data) {
+                        console.log((data));
+
+                    }
+                })
+
+
+            });
+
+            $(".shot").click(function () {
+                var data_url = $(this).attr("data-url")
+                console.log(data_url);
+                $.ajax({
+                    url: data_url,
+                    method: "GET",
+                    success: function (data) {
+                        $('#shot-modal .modal-content').html(data)
+                        console.log(data);
+                        setTimeout(function(){
+                            initGallery();
+                        }, 500);
+
+
+                    }
+                });
+                console.log("done1")
+            });
+
+
+        });
+
+
+    </script>
+{% endblock %}

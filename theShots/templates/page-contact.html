@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block page %}
+    <!-- Main container -->
+<main>
+
+    <section class="no-border-bottom">
+        <div class="container">
+            <header class="section-header">
+                <span>Contact us</span>
+                <h2>Get in touch</h2>
+                <p>Find us on the map, write us a message or follow us in social networks</p>
+            </header>
+
+            <div class="row equal-cols">
+                <div class="col-xs-12 col-sm-7">
+                    <div class="contact-map-wrapper">
+                        <div id="contact-map"></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-5">
+
+                    <div class="card">
+                        <div class="card-block">
+                            <dl class="icon-holder">
+                                <dt><i class="fa fa-map-marker"></i></dt>
+                                <dd>3652 Seventh Avenue, Los Angeles, CA</dd>
+
+                                <dt><i class="fa fa-phone"></i></dt>
+                                <dd>(+1) 987 654 3210</dd>
+
+                                <dt><i class="fa fa-fax"></i></dt>
+                                <dd>(+1) 123 456 7890</dd>
+
+                                <dt><i class="fa fa-envelope"></i></dt>
+                                <dd>hello@example.com</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h6>Write us a message</h6>
+                        </div>
+
+                        <div class="card-block">
+                            <form>
+                                <input type="text" class="form-control input-lg" placeholder="Name">
+                                <br>
+                                <input type="email" class="form-control input-lg" placeholder="Email">
+                                <br>
+                                <textarea class="form-control" rows="5" placeholder="Message"></textarea>
+                                <br>
+                                <button type="submit" class="btn btn-primary btn-block">Send</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+<!-- END Main container -->
+
+
+{% endblock %}
