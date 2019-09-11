@@ -29,7 +29,7 @@ def common_data():
     }
     return context
 
-context = common_data()
+# context = common_data()
 
 def about_view(request):
     context = common_data()
@@ -61,6 +61,7 @@ def contact_view(request):
     return render(request, 'page-contact.html',context)
 
 def explore_view(request):
+    context = common_data()
     pagination = Paginator(PostModel.objects.all(), 4 )
     context["posts"] = pagination.get_page(request.GET.get('page', 1))
     context["page_range"] = pagination.page_range

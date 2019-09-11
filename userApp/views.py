@@ -14,7 +14,7 @@ from . import models
 
 
 User = get_user_model()
-context = common_data()
+# context = common_data()
 
 
 def home_view(request):
@@ -81,6 +81,7 @@ def settings_view(request):
 
 
 def profile_view(request):
+    context = common_data()
     context['posts'] = models.PostModel.objects.filter(user=request.user)
     return render(request, 'user-profile.html', context)
 
@@ -91,6 +92,7 @@ def logout_view(request):
 
 
 def shotadd_view(request):
+    context = common_data()
     if request.user.is_authenticated:
         context['form'] = forms.Shotadd()
         context['image_data'] = str(uuid.uuid4())
@@ -156,6 +158,7 @@ def shotdelete_view(request):
 
 
 def form_view(request):
+    context = common_data()
     context['form'] = forms.Formm()
     if request.method == 'POST':
         print(request.FILES)
@@ -199,6 +202,7 @@ def postmodal_view(request, id):
 
 
 def explore_people(request):
+    context = common_data()
     my_following= [follow.to_user for follow in request.user.following.all()]
     context['users']=User.objects.all().exclude(id=request.user.id)
 
@@ -227,10 +231,12 @@ def explore_people(request):
     return render(request, 'explorepeople.html',context)
 
 def user_followers(request):
+    context = common_data()
     context['followers'] = [follow.from_user for follow in request.user.followers.all()]
     return render(request, 'user-followers.html',context)
 
 def user_following(request):
+    context = common_data()
     context["following"] = [follow.to_user for follow in request.user.following.all()]
     context['name'] = 'narmin'
     # return HttpResponse(request.user.following.all()[0].username)
@@ -239,7 +245,7 @@ def user_following(request):
 
 def social_settings(request):
     icons = request.user.usericon_set.filter(user=request.user)[0]
-
+    context = common_data()
     context['form'] = forms.SocialForm(instance=icons)
     if request.method == "POST":
         form = forms.SocialForm(request.POST,instance=icons)
