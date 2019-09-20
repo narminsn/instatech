@@ -171,6 +171,7 @@ def form_view(request):
 def postmodal_view(request, id):
     context = {}
 
+
     id = id
     post = models.PostModel.objects.filter(id=id).last()
     context['post'] = post

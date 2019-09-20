@@ -29,7 +29,6 @@ def common_data():
     }
     return context
 
-# context = common_data()
 
 def about_view(request):
     context = common_data()
@@ -103,3 +102,6 @@ def input(request):
     if request.method == 'POST':
         return HttpResponse('post')
     return render(request,'input.html')
+
+def fag_view(request):
+    return  render(request, 'page-faq.html')

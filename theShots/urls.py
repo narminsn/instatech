@@ -9,6 +9,8 @@ urlpatterns = [
    path('about/', views.about_view, name='about-view'),
    path('contact/', views.contact_view, name='contact-view'),
    path('explore/', views.explore_view, name='explore-view'),
-   path('input/', views.input, name='input_view')
+   path('input/', views.input, name='input_view'),
+   path('fag/', views.fag_view, name='page-fag')
+
 
 ]

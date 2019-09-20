@@ -9,7 +9,6 @@
     <div class="container">
         <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
             <h1><strong>{{ header.title }}</strong></h1>
-{#            <h4>Upload your design, we <strong>spread</strong> it online!</h4>#}
             <h4>{{ header.subtitle }}</h4>
             <br>
             <p class="hidden-xs">Nullam at elementum risus. Quisque ornare hendrerit risus, sed cursus lectus accumsan
@@ -23,9 +22,7 @@
             {% csrf_token %}
             {% for field in login_form %}
                 <div class="form-group">
-{#                    <input class="form-control input-lg" type="text" placeholder="Name">#}
-{#                     {{ field|append_attr:"class:form-control input-lg"|append_attr:"placeholder:"{{field.label}} }}#}
-                    {% render_field field class="form-control input-lg" placeholder=field.label %}
+        {% render_field field class="form-control input-lg" placeholder=field.label %}
                     <br>
                     {% if field.errors %}
                         {% for msg in field.errors %}
@@ -34,13 +31,6 @@
                     {% endif %}
                 </div>
             {% endfor %}
-{#            <div class="form-group">#}
-{#                    <input class="form-control input-lg" type="text" placeholder="Username">#}
-{#                </div>#}
-{##}
-{#                <div class="form-group">#}
-{#                    <input class="form-control input-lg" type="password" placeholder="Password">#}
-{#                </div>#}
 
                 <p><a href="user-forget-pass.html">Forgot your password?</a></p>
 
@@ -81,9 +71,7 @@
                  {% csrf_token %}
                 {% for field in register_form %}
                     <div class="form-group">
-{#                    <input class="form-control input-lg" type="text" placeholder="Name">#}
-{#                     {{ field|append_attr:"class:form-control input-lg"|append_attr:"placeholder:"{{field.label}} }}#}
-                    {% render_field field class="form-control input-lg" placeholder=field.label %}
+    {% render_field field class="form-control input-lg" placeholder=field.label %}
                     <br>
                     {% if field.errors %}
                         {% for msg in field.errors %}
@@ -219,42 +207,6 @@
                     <p class="text-justify">{{ section.text }}</p>
                 </li>
                 {% endfor %}
-
-{##}
-{#                <li>#}
-{#                    <div class="icon"><i class="fa fa-search"></i></div>#}
-{#                    <h5>SEO Friendly</h5>#}
-{#                    <p class="text-justify">Quisque ornare hendrerit risus, lectus accumsan suspendisse non ultrices#}
-{#                        urna aenean leo dictum, lobortis sollicitudin lorem.</p>#}
-{#                </li>#}
-{##}
-{#                <li>#}
-{#                    <div class="icon"><i class="fa fa-newspaper-o"></i></div>#}
-{#                    <h5>We Advertise</h5>#}
-{#                    <p class="text-justify">Quisque ornare hendrerit risus, lectus accumsan suspendisse non ultrices#}
-{#                        urna aenean leo dictum, lobortis sollicitudin lorem.</p>#}
-{#                </li>#}
-{##}
-{#                <li>#}
-{#                    <div class="icon"><i class="fa fa-user"></i></div>#}
-{#                    <h5>Get followers</h5>#}
-{#                    <p class="text-justify">Quisque ornare hendrerit risus, lectus accumsan suspendisse non ultrices#}
-{#                        urna aenean leo dictum, lobortis sollicitudin lorem.</p>#}
-{#                </li>#}
-{##}
-{#                <li>#}
-{#                    <div class="icon"><i class="fa fa-th"></i></div>#}
-{#                    <h5>Portfolio page</h5>#}
-{#                    <p class="text-justify">Quisque ornare hendrerit risus, lectus accumsan suspendisse non ultrices#}
-{#                        urna aenean leo dictum, lobortis sollicitudin lorem.</p>#}
-{#                </li>#}
-{##}
-{#                <li>#}
-{#                    <div class="icon"><i class="fa fa-heart"></i></div>#}
-{#                    <h5>See likes</h5>#}
-{#                    <p class="text-justify">Quisque ornare hendrerit risus, lectus accumsan suspendisse non ultrices#}
-{#                        urna aenean leo dictum, lobortis sollicitudin lorem.</p>#}
-{#                </li>#}
             </ul>
 
 
