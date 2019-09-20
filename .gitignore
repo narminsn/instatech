@@ -8,6 +8,7 @@ media/
 .idea/
 .vscode/
 .venv/
+pgdb
 # Distribution / packaging
 .Python
 build/
